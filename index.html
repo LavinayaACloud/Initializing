@@ -217,6 +217,58 @@
     box-shadow: 0 0 10px rgba(217,164,65,0.35);
   }
 
+  /* ---------- ADMIN MODE ---------- */
+
+#login-btn{
+  font-family: var(--font-title);
+  font-size: 9px;
+  letter-spacing: 0.5px;
+
+  padding: 7px 10px;
+
+  background: rgba(217,164,65,0.15);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+
+  color: var(--gold-bright);
+  cursor: pointer;
+
+  flex-shrink: 0;
+}
+
+#login-btn:hover{
+  background: rgba(217,164,65,0.3);
+}
+
+.admin-edit{
+  display:none;
+
+  margin-left:6px;
+  padding:2px 5px;
+
+  font-family:var(--font-title);
+  font-size:10px;
+
+  background:rgba(217,164,65,0.15);
+  border:1px solid var(--gold-dim);
+  border-radius:4px;
+
+  color:var(--gold-bright);
+  cursor:pointer;
+}
+
+.admin-edit:hover{
+  background:rgba(217,164,65,0.3);
+}
+
+body.admin-mode .admin-edit{
+  display:inline-block;
+}
+
+body.admin-mode #login-btn{
+  border-color:var(--gold-bright);
+}
+
   /* ---------- WINDOWS ---------- */
   .win{
     position:absolute;
@@ -230,6 +282,9 @@
     resize: both;
     overflow: hidden;
     backdrop-filter: blur(6px);
+  }
+  .win.minimized{
+  display:none;
   }
   .win.hidden{ display:none; }
   .win-title{
@@ -394,11 +449,75 @@
   .link-list li::before{ content:"✦"; color: var(--gold); }
 
   /* ---------- GALLERY ---------- */
-  .gallery-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
-  }
+  .gallery-folders{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:10px;
+  margin-top:14px;
+}
+
+.gallery-folder{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:105px;
+  padding:12px 8px;
+
+  background:rgba(217,164,65,0.08);
+  border:1px solid var(--gold);
+  border-radius:8px;
+
+  color:var(--gold-bright);
+  font-family:var(--font-title);
+  cursor:pointer;
+}
+
+.gallery-folder:hover{
+  background:rgba(217,164,65,0.18);
+  transform:translateY(-2px);
+}
+
+.folder-icon{
+  font-size:32px;
+  margin-bottom:7px;
+}
+
+.folder-name{
+  font-size:11px;
+  letter-spacing:0.5px;
+}
+
+.folder-count{
+  margin-top:5px;
+  font-size:8px;
+  opacity:0.65;
+}
+
+.gallery-folder-view{
+  margin-top:12px;
+}
+
+.gallery-back{
+  font-family:var(--font-title);
+  font-size:9px;
+  padding:5px 9px;
+
+  background:rgba(217,164,65,0.1);
+  border:1px solid var(--gold);
+  border-radius:6px;
+
+  color:var(--gold-bright);
+  cursor:pointer;
+}
+
+.gallery-back:hover{
+  background:rgba(217,164,65,0.25);
+}
+
+.gallery-folder-title{
+  margin:12px 0;
+}
   .gallery-tile{
     aspect-ratio: 4/3;
     border: 1px solid var(--gold-dim);
@@ -411,6 +530,13 @@
     color: var(--gold-bright);
     text-shadow: 0 0 6px rgba(0,0,0,0.8);
   }
+  .gallery-folder-view.hidden{
+  display:none;
+}
+
+.gallery-folders.hidden{
+  display:none;
+}
 
   /* ---------- RESUME ---------- */
   .timeline-item{
@@ -554,21 +680,26 @@
     flex-shrink:0;
   }
 
-  #theme-toggle{
-    position:fixed;
-    left:12px; top:38px;
-    z-index:5;
-    font-family: var(--font-title);
-    font-size: 9px;
-    letter-spacing: 0.5px;
-    padding:7px 10px;
-    background: rgba(217,164,65,0.15);
-    border:1px solid var(--gold);
-    border-radius: 8px;
-    color: var(--gold-bright);
-    cursor:pointer;
-  }
-  #theme-toggle:hover{ background: rgba(217,164,65,0.3); }
+ #theme-toggle{
+  font-family: var(--font-title);
+  font-size: 9px;
+  letter-spacing: 0.5px;
+
+  padding: 7px 10px;
+
+  background: rgba(217,164,65,0.15);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+
+  color: var(--gold-bright);
+  cursor: pointer;
+
+  flex-shrink: 0;
+}
+
+#theme-toggle:hover{
+  background: rgba(217,164,65,0.3);
+}
 
   ::selection{ background: var(--gold); color:#1a1206; }
 
@@ -576,6 +707,7 @@
     outline: 2px solid var(--gold-bright);
     outline-offset: 2px;
   }
+
 
   /* ---------- MOBILE ---------- */
   @media (max-width: 720px){
@@ -636,8 +768,6 @@
   <span class="marquee-track">✦ WELCOME TO LAVINAYA ✦ A SMALL WORLD, NOT JUST A PORTFOLIO ✦ DRAG THE WINDOWS AROUND ✦ SIGN THE GUESTBOOK ON YOUR WAY OUT ✦ BEST EXPLORED SLOWLY ✦</span>
 </div>
 
-<button id="theme-toggle" type="button" aria-pressed="false">☾ TOGGLE THEME</button>
-
 <div id="corner-widgets">
   <div class="widget-box" id="counter-box">
     <div>VISITORS</div>
@@ -655,22 +785,61 @@
     <button class="icon" data-open="win-projects"><span class="icon-glyph">💻</span>Projects</button>
     <button class="icon" data-open="win-blog"><span class="icon-glyph">🖋</span>Blog</button>
     <button class="icon" data-open="win-links"><span class="icon-glyph">🔗</span>Links</button>
-    <button class="icon" data-open="win-gallery"><span class="icon-glyph">🎨</span>Art</button>
+    <button class="icon" data-open="win-gallery"><span class="icon-glyph">📷</span>Gallery</button>
     <button class="icon" data-open="win-resume"><span class="icon-glyph">📄</span>Resume.exe</button>
     <button class="icon" data-open="win-shrines"><span class="icon-glyph">✦</span>Shrines</button>
     <button class="icon" data-open="win-guestbook"><span class="icon-glyph">📖</span>Guestbook</button>
   </nav>
 
-  <!-- ---------- WINDOWS ---------- -->
+  <!------------- WINDOWS ------------->
 
-  <!-- ABOUT / SPLASH -->
+  <!-------------- LOGIN -------------->
+  <section class="win hidden" id="win-login" style="top:90px; left:180px; width:320px; z-index:30;">
+  <div class="win-title">
+    <span class="label">🔐 User Login</span>
+    <div class="win-btns">
+      <button class="min-btn" aria-label="Minimize">_</button>
+      <button class="close-btn" aria-label="Close">X</button>
+    </div>
+  </div>
+
+  <div class="win-body">
+    <h2>authentication</h2>
+
+    <p>this computer is currently operating in guest mode.</p>
+
+    <form id="login-form">
+      <label for="admin-password">password</label>
+
+      <input
+        id="admin-password"
+        class="gb-field"
+        type="password"
+        autocomplete="off"
+        required
+      >
+
+      <button type="submit" class="btn-pixel">
+        log in ▸
+      </button>
+
+      <p id="login-message" style="margin-top:10px;"></p>
+    </form>
+  </div>
+</section>
+
+  <!-- ABOUT / SPLASH / STATUS-->
   <section class="win" id="win-about" style="top:26px; left:120px; width:370px; z-index:10;">
     <div class="win-title"><span class="label">📜 Welcome.txt</span>
       <div class="win-btns"><button class="min-btn" aria-label="Minimize">_</button><button class="close-btn" aria-label="Close">X</button></div>
     </div>
     <div class="win-body">
       <div class="avatar" aria-hidden="true">✦</div>
-      <div class="status-line">status: awake, mostly</div>
+      <div class="status-line">
+        status:
+        <span id="status-text">awake, mostly</span>
+        <button id="edit-status" class="admin-edit" type="button" aria-label="Edit status">✎</button>
+      </div>
       <h2>hi, i'm Lavinaya</h2>
       <p>this isn't really a website. it's more like a small computer i keep — full of things i've built, things i'm still building, and a few things i just wanted to keep somewhere quiet.</p>
       <p>have a look around. open what looks interesting. nothing here bites.</p>
@@ -688,29 +857,42 @@
       <h2>things i've built</h2>
       <div class="card-grid">
         <div class="proj-card">
-          <h3>pixel-sync</h3>
-          <p>a tiny CLI that keeps dotfiles in sync across machines over SSH, no daemon required.</p>
-          <div class="tag-row"><span class="tag">rust</span><span class="tag">cli</span></div>
-          <a class="btn-pixel" href="#">view repo ▸</a>
+          <h3>1st Website Ever</h3>
+          <p>The first website i made to learn the basics of web development.</p>
+          <div class="tag-row"><span class="tag">html</span><span class="tag">css</span></div>
+          <a class="btn-pixel" href="https://lavinayaacloud.github.io/Website/"
+            target="_blank"
+           rel="noopener noreferrer"
+            >view repo ▸</a>
         </div>
         <div class="proj-card">
-          <h3>guestbook-api</h3>
-          <p>a self-hostable guestbook backend with spam filtering, built for old-web revival sites like this one.</p>
-          <div class="tag-row"><span class="tag">node</span><span class="tag">sqlite</span></div>
-          <a class="btn-pixel" href="#">view repo ▸</a>
+          <h3>2nd Website Ever</h3>
+          <p>A second website i made to refresh my knowledge of web development.</p>
+          <div class="tag-row"><span class="tag">html</span><span class="tag">css</span><span class="tag">javascript</span></div>
+          <a class="btn-pixel" href="https://lavinayaacloud.github.io/WebsiteRefresh/"
+            target="_blank"
+           rel="noopener noreferrer"
+            >view repo ▸</a>
         </div>
         <div class="proj-card">
-          <h3>windowManager.js</h3>
-          <p>a lightweight vanilla-JS module for draggable, focusable, closable desktop-style windows — the same one running this site.</p>
-          <div class="tag-row"><span class="tag">javascript</span><span class="tag">open-source</span></div>
-          <a class="btn-pixel" href="#">view repo ▸</a>
+          <h3>to-do app</h3>
+          <p>a simple to-do list application built with html, css, and javascript with my attempt at a glassmorphism effect.</p>
+          <div class="tag-row"><span class="tag">html</span><span class="tag">css</span><span class="tag">javascript</span></div>
+          <a class="btn-pixel" href="https://lavinayaacloud.github.io/Glassmorphism-To-Do-List-App/"
+            target="_blank"
+           rel="noopener noreferrer"
+            >view repo ▸</a>
         </div>
         <div class="proj-card">
-          <h3>tinyboard</h3>
-          <p>a minimalist kanban board that saves your boards as plain markdown files.</p>
-          <div class="tag-row"><span class="tag">svelte</span><span class="tag">local-first</span></div>
-          <a class="btn-pixel" href="#">view repo ▸</a>
+          <h3>calculator</h3>
+          <p>a beautiful little calculator built with html, css, and javascript.</p>
+          <div class="tag-row"><span class="tag">html</span><span class="tag">css</span><span class="tag">javascript</span></div>
+          <a class="btn-pixel" href="https://lavinayaacloud.github.io/Calulator/"
+            target="_blank"
+           rel="noopener noreferrer"
+            >view repo ▸</a>
         </div>
+        
       </div>
     </div>
   </section>
@@ -759,21 +941,52 @@
     </div>
   </section>
 
-  <!-- GALLERY / ART -->
+  <!-- GALLERY / EDITS -->
   <section class="win hidden" id="win-gallery" style="top:58px; left:340px; width:370px; z-index:6;">
-    <div class="win-title"><span class="label">🎨 Art</span>
+    <div class="win-title"><span class="label">📷 Gallery</span>
       <div class="win-btns"><button class="min-btn" aria-label="Minimize">_</button><button class="close-btn" aria-label="Close">X</button></div>
     </div>
     <div class="win-body">
-      <h2>screenshots &amp; sketches</h2>
-      <div class="gallery-grid">
-        <div class="gallery-tile" style="background:linear-gradient(135deg,#1c4038,#0a201c);">pixel-sync v2 UI</div>
-        <div class="gallery-tile" style="background:linear-gradient(135deg,#3d2c0f,#1c1305);">tinyboard mockup</div>
-        <div class="gallery-tile" style="background:linear-gradient(135deg,#0a201c,#155048);">desktop theme test</div>
-        <div class="gallery-tile" style="background:linear-gradient(135deg,#4a2f0c,#1c1305);">conference badge art</div>
-      </div>
-      <p style="margin-top:12px;">swap these tiles for real screenshots — drop images in and update the background styles.</p>
-    </div>
+
+  <h2>gallery</h2>
+
+  <div class="gallery-folders">
+
+    <button class="gallery-folder" data-folder="minecraft">
+      <span class="folder-icon">📁</span>
+      <span class="folder-name">Minecraft</span>
+      <span class="folder-count">0 items</span>
+    </button>
+
+    <button class="gallery-folder" data-folder="websites">
+      <span class="folder-icon">📁</span>
+      <span class="folder-name">Websites</span>
+      <span class="folder-count">0 items</span>
+    </button>
+
+    <button class="gallery-folder" data-folder="edits">
+      <span class="folder-icon">📁</span>
+      <span class="folder-name">Edits</span>
+      <span class="folder-count">0 items</span>
+    </button>
+
+    <button class="gallery-folder" data-folder="random">
+      <span class="folder-icon">📁</span>
+      <span class="folder-name">Random</span>
+      <span class="folder-count">0 items</span>
+    </button>
+
+  </div>
+
+    <h2 class="gallery-folder-title"></h2>
+
+    <div class="gallery-grid"></div>
+
+    <div class="gallery-folder-view hidden">
+    <button class="gallery-back" type="button">← back</button>
+  </div>
+
+</div>
   </section>
 
   <!-- RESUME -->
@@ -846,6 +1059,8 @@
 <div id="taskbar">
   <button id="start-btn" type="button">☾ START</button>
   <div id="taskbar-items"></div>
+  <button id="theme-toggle" type="button" aria-pressed="false">☾ THEME</button>
+  <button id="login-btn" type="button">♙ LOGIN</button>
   <div id="clock">00:00</div>
 </div>
 
@@ -910,7 +1125,6 @@ continueBtn.addEventListener('click', () => {
   }, 900); 
 });
 
-
   /* ---------- window management ---------- */
   var windows = Array.prototype.slice.call(document.querySelectorAll('.win'));
   var taskbarItems = document.getElementById('taskbar-items');
@@ -940,17 +1154,32 @@ continueBtn.addEventListener('click', () => {
     renderTaskbar();
   }
 
+  function minimizeWindow(win){
+  win.classList.add('minimized');
+  renderTaskbar();
+  }
+
   function renderTaskbar(){
     taskbarItems.innerHTML = '';
     windows.forEach(function(win){
-      if(win.classList.contains('hidden')) return;
-      var btn = document.createElement('button');
-      btn.className = 'task-item';
-      btn.textContent = titleOf(win);
-      btn.dataset.target = win.id;
-      btn.addEventListener('click', function(){ bringToFront(win); });
-      taskbarItems.appendChild(btn);
-    });
+
+  if(win.classList.contains('hidden')) return;
+
+  var btn = document.createElement('button');
+
+  btn.className = 'task-item';
+  btn.textContent = titleOf(win);
+  btn.dataset.target = win.id;
+
+  btn.addEventListener('click', function(){
+    win.classList.remove('minimized');
+    bringToFront(win);
+    renderTaskbar();
+  });
+
+  taskbarItems.appendChild(btn);
+
+});
   }
 
   function setActiveTask(id){
@@ -965,7 +1194,7 @@ continueBtn.addEventListener('click', () => {
 
   windows.forEach(function(win){
     win.querySelector('.close-btn').addEventListener('click', function(){ closeWindow(win); });
-    win.querySelector('.min-btn').addEventListener('click', function(){ closeWindow(win); });
+    win.querySelector('.min-btn').addEventListener('click', function(){ minimizeWindow(win); });
     win.addEventListener('mousedown', function(){ bringToFront(win); });
   });
 
@@ -1030,7 +1259,148 @@ continueBtn.addEventListener('click', () => {
     windows.forEach(function(win){ openWindow(win.id); });
   });
 
-  /* ---------- clock ---------- */
+ /* ---------- gallery ---------- */
+
+var galleryData = {
+
+  minecraft: {
+
+    title: 'Minecraft',
+
+    images: [
+
+      {
+        src: 'gallery/minecraft/gallery/minecraft/Screenshot 2026-05-09 203400.png',
+        title: 'example screenshot'
+      },
+
+
+    ]
+
+  },
+
+  websites: {
+
+    title: 'Websites',
+
+    images: [
+
+      {
+        src: 'gallery/websites/gallery/websites/Screenshot 2025-09-08 225522.png',
+        title: 'portfolio'
+      }
+
+    ]
+
+  },
+
+  edits: {
+
+    title: 'Edits',
+
+    images: [
+
+      {
+        src: 'gallery/edits/gallery/edits/Ariana Grande eternal sunshine+.png',
+        title: 'work in progress'
+      },
+      {
+        src: 'gallery/edits/gallery/edits/gallery/edits/Untitled design.png',
+        title: 'work in progress'
+      }
+
+    ]
+
+  },
+
+  random: {
+
+    title: 'Random',
+
+    images: [
+
+      {
+        src: 'gallery/random/gallery/random/FydrtSSWYAEmIc-.jpg',
+        title: 'something'
+      }
+
+    ]
+
+  }
+
+};
+
+
+/* ---------- gallery folder navigation ---------- */
+
+var galleryFolders = document.querySelectorAll('.gallery-folder');
+var galleryFolderView = document.querySelector('.gallery-folder-view');
+var galleryFoldersView = document.querySelector('.gallery-folders');
+var galleryFolderTitle = document.querySelector('.gallery-folder-title');
+var galleryGrid = document.querySelector('.gallery-folder-view .gallery-grid');
+var galleryBack = document.querySelector('.gallery-back');
+
+
+galleryFolders.forEach(function(folder){
+
+  var folderName = folder.dataset.folder;
+  var data = galleryData[folderName];
+
+  if(data){
+
+    var count = data.images.length;
+    var countElement = folder.querySelector('.folder-count');
+
+    countElement.textContent =
+      count + (count === 1 ? ' item' : ' items');
+
+  }
+
+  folder.addEventListener('click', function(){
+
+    var folderName = folder.dataset.folder;
+    var data = galleryData[folderName];
+
+    if(!data) return;
+
+    galleryFoldersView.classList.add('hidden');
+    galleryFolderView.classList.remove('hidden');
+
+    galleryFolderTitle.textContent = '📁 ' + data.title;
+
+    galleryGrid.innerHTML = '';
+
+    data.images.forEach(function(image){
+
+      var tile = document.createElement('div');
+
+      tile.className = 'gallery-tile';
+
+      var img = document.createElement('img');
+
+      img.src = image.src;
+      img.alt = image.title;
+
+      tile.appendChild(img);
+
+      galleryGrid.appendChild(tile);
+
+    });
+
+  });
+
+});
+
+
+galleryBack.addEventListener('click', function(){
+
+  galleryFolderView.classList.add('hidden');
+  galleryFoldersView.classList.remove('hidden');
+
+});
+
+
+/* ---------- clock ---------- */
   function tick(){
     var d = new Date();
     var h = d.getHours() % 12 || 12;
@@ -1065,6 +1435,9 @@ continueBtn.addEventListener('click', () => {
   } catch(e){
     document.getElementById('counter-digits').textContent = '010483';
   }
+
+  /* ---------- ADMIN MODE ---------- */
+document.body.classList.add('admin-mode');
 
   /* ---------- guestbook ---------- */
   var GB_KEY = 'lavinaya_guestbook';
@@ -1105,6 +1478,210 @@ continueBtn.addEventListener('click', () => {
     renderEntries();
     e.target.reset();
   });
+
+  /* ---------- ADMIN MODE ---------- */
+
+var ADMIN_PASSWORD = 'Moonlight941';
+
+var loginBtn = document.getElementById('login-btn');
+var loginForm = document.getElementById('login-form');
+var loginMessage = document.getElementById('login-message');
+var statusText = document.getElementById('status-text');
+var editStatusBtn = document.getElementById('edit-status');
+
+var STATUS_KEY = 'lavinaya_status';
+var ADMIN_KEY = 'lavinaya_admin';
+
+function loadStatus(){
+  try {
+    var savedStatus = localStorage.getItem(STATUS_KEY);
+
+    if(savedStatus){
+      statusText.textContent = savedStatus;
+    }
+  } catch(e){}
+}
+
+function setAdminMode(){
+  document.body.classList.add('admin-mode');
+  loginBtn.textContent = '♙ ADMIN';
+}
+
+function leaveAdminMode(){
+  document.body.classList.remove('admin-mode');
+  loginBtn.textContent = '♙ LOGIN';
+
+  try {
+    localStorage.removeItem(ADMIN_KEY);
+  } catch(e){}
+}
+
+function isAdmin(){
+  try {
+    return localStorage.getItem(ADMIN_KEY) === 'true';
+  } catch(e){
+    return false;
+  }
+}
+
+loadStatus();
+
+if(isAdmin()){
+  setAdminMode();
+}
+
+loginBtn.addEventListener('click', function(){
+
+  if(isAdmin()){
+    leaveAdminMode();
+    return;
+  }
+
+  openWindow('win-login');
+
+  var passwordInput = document.getElementById('admin-password');
+
+  if(passwordInput){
+    passwordInput.focus();
+  }
+});
+
+
+loginForm.addEventListener('submit', function(e){
+
+  e.preventDefault();
+
+  var passwordInput = document.getElementById('admin-password');
+  var password = passwordInput.value;
+
+  if(password === ADMIN_PASSWORD){
+
+    try {
+      localStorage.setItem(ADMIN_KEY, 'true');
+    } catch(e){}
+
+    setAdminMode();
+
+    loginMessage.textContent = 'access granted ✦';
+    loginMessage.style.color = 'var(--gold-bright)';
+
+    passwordInput.value = '';
+
+    setTimeout(function(){
+      closeWindow(document.getElementById('win-login'));
+    }, 700);
+
+  } else {
+
+    loginMessage.textContent = 'access denied.';
+    loginMessage.style.color = 'var(--text-dim)';
+
+    passwordInput.value = '';
+    passwordInput.focus();
+  }
+
+});
+
+
+function setupStatusEditor(){
+
+  editStatusBtn = document.getElementById('edit-status');
+
+  editStatusBtn.addEventListener('click', function(){
+
+    if(!isAdmin()) return;
+
+    var currentStatus = statusText.textContent;
+
+    var container = statusText.parentElement;
+
+    container.innerHTML = 'status: ';
+
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.value = currentStatus;
+    input.className = 'gb-field';
+    input.style.margin = '0 6px';
+    input.style.width = '55%';
+    input.maxLength = 80;
+
+    var saveBtn = document.createElement('button');
+    saveBtn.type = 'button';
+    saveBtn.className = 'btn-pixel';
+    saveBtn.textContent = 'save';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'btn-pixel';
+    cancelBtn.textContent = 'cancel';
+
+    container.appendChild(input);
+    container.appendChild(saveBtn);
+    container.appendChild(cancelBtn);
+
+    input.focus();
+
+    saveBtn.addEventListener('click', function(){
+
+      var newStatus = input.value.trim();
+
+      if(!newStatus){
+        input.focus();
+        return;
+      }
+
+      try {
+        localStorage.setItem(STATUS_KEY, newStatus);
+      } catch(e){}
+
+      statusText = document.createElement('span');
+      statusText.id = 'status-text';
+      statusText.textContent = newStatus;
+
+      container.innerHTML = 'status: ';
+      container.appendChild(statusText);
+
+      var newEditBtn = document.createElement('button');
+
+      newEditBtn.id = 'edit-status';
+      newEditBtn.className = 'admin-edit';
+      newEditBtn.type = 'button';
+      newEditBtn.textContent = '✎';
+      newEditBtn.setAttribute('aria-label', 'Edit status');
+
+      container.appendChild(newEditBtn);
+
+      setupStatusEditor();
+    });
+
+    cancelBtn.addEventListener('click', function(){
+
+      container.innerHTML = 'status: ';
+
+      statusText = document.createElement('span');
+      statusText.id = 'status-text';
+      statusText.textContent = currentStatus;
+
+      container.appendChild(statusText);
+
+      var newEditBtn = document.createElement('button');
+
+      newEditBtn.id = 'edit-status';
+      newEditBtn.className = 'admin-edit';
+      newEditBtn.type = 'button';
+      newEditBtn.textContent = '✎';
+      newEditBtn.setAttribute('aria-label', 'Edit status');
+
+      container.appendChild(newEditBtn);
+
+      setupStatusEditor();
+    });
+
+  });
+
+}
+
+setupStatusEditor();
 
 })();
 </script>
