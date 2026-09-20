@@ -273,6 +273,8 @@ body.admin-mode #login-btn{
   .win{
     position:absolute;
     min-width: 260px;
+    max-width:90vw;
+    max-height:90vh;
     background: var(--window-face);
     border: 1.5px solid var(--window-border);
     border-radius: 12px;
@@ -393,6 +395,217 @@ body.admin-mode #login-btn{
     opacity: 0.85;
   }
 
+  /* ---------- MUSIC PLAYER ---------- */
+
+.music-player{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.album-art{
+  width:135px;
+  height:135px;
+
+  margin:0 auto 14px;
+
+  background-size:cover;
+  background-position:center;
+
+  border:1px solid var(--gold);
+  border-radius:8px;
+
+  box-shadow:0 0 12px rgba(217,164,65,0.18);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:var(--gold-bright);
+  font-size:32px;
+}
+
+.track-info h2{
+  margin:0;
+  font-size:22px;
+}
+
+.track-info p{
+  margin:2px 0 0;
+  color:var(--text-dim);
+  font-size:16px;
+}
+
+#music-progress{
+  width:100%;
+  accent-color:var(--gold);
+  cursor:pointer;
+}
+
+.music-time{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+
+  font-family:var(--font-title);
+  font-size:10px;
+  color:var(--text-dim);
+}
+
+.music-controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+
+.music-controls button{
+  width:38px;
+  height:30px;
+
+  border:1px solid var(--gold-dim);
+  border-radius:6px;
+
+  background:rgba(217,164,65,0.08);
+  color:var(--gold-bright);
+
+  cursor:pointer;
+
+  font-family:var(--font-title);
+}
+
+.music-controls button:hover{
+  background:rgba(217,164,65,0.22);
+}
+
+.volume-control{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  margin-top:2px;
+}
+
+#music-volume{
+  flex:1;
+  accent-color:var(--gold);
+  cursor:pointer;
+}
+
+#music-mute{
+  flex-shrink:0;
+
+  padding:4px 7px;
+
+  border:1px solid var(--gold-dim);
+  border-radius:5px;
+
+  background:rgba(217,164,65,0.08);
+  color:var(--gold-bright);
+
+  font-family:var(--font-title);
+  font-size:8px;
+
+  cursor:pointer;
+}
+
+#music-mute:hover{
+  background:rgba(217,164,65,0.22);
+}
+
+#music-play{
+  width:48px;
+  height:36px;
+  border-color:var(--gold);
+}
+
+.tracklist{
+  width:100%;
+  max-height:130px;
+  overflow-y:auto;
+
+  border-top:1px solid var(--gold-dim);
+  border-bottom:1px solid var(--gold-dim);
+}
+
+.track{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:7px 8px;
+
+  border:0;
+  border-bottom:1px solid rgba(217,164,65,0.1);
+
+  background:transparent;
+  color:var(--text-color);
+
+  font-family:var(--font-body);
+  font-size:16px;
+
+  text-align:left;
+  cursor:pointer;
+}
+
+.track span:first-child{
+  width:22px;
+  color:var(--text-dim);
+  font-family:var(--font-title);
+  font-size:10px;
+}
+
+.track:hover{
+  background:rgba(217,164,65,0.08);
+}
+
+.track.active{
+  color:var(--gold-bright);
+  background:rgba(217,164,65,0.12);
+}
+
+.ytmusic-link{
+  margin-top:4px;
+
+  font-family:var(--font-title);
+  font-size:10px;
+  letter-spacing:0.5px;
+
+  color:var(--gold-bright);
+  text-decoration:none;
+
+  opacity:0.8;
+}
+
+.ytmusic-link:hover{
+  opacity:1;
+  text-decoration:underline;
+}
+
+.spotify-link{
+  margin-top:4px;
+
+  font-family:var(--font-title);
+  font-size:10px;
+  letter-spacing:0.5px;
+
+  color:var(--gold-bright);
+  text-decoration:none;
+
+  opacity:0.8;
+}
+
+.spotify-link:hover{
+  opacity:1;
+  text-decoration:underline;
+}
+
   /* ---------- PROJECTS ---------- */
   .card-grid{
     display:grid;
@@ -494,11 +707,35 @@ body.admin-mode #login-btn{
   opacity:0.65;
 }
 
+#win-gallery .win-body{
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+
 .gallery-folder-view{
   margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-height:100%;
+  box-sizing:border-box;
+}
+
+.gallery-folder-view .gallery-grid{
+  min-height:0;
+  overflow-y:auto;
+
+  display:flex;
+  flex-wrap:wrap;
+  gap: 10px;
+  flex:0 0 auto;
+  align-content:flex-start;
 }
 
 .gallery-back{
+  margin-top:4px;
+  align-self:flex-start;
+  flex-shrink:0;
   font-family:var(--font-title);
   font-size:9px;
   padding:5px 9px;
@@ -518,23 +755,44 @@ body.admin-mode #login-btn{
 .gallery-folder-title{
   margin:12px 0;
 }
-  .gallery-tile{
-    aspect-ratio: 4/3;
-    border: 1px solid var(--gold-dim);
-    border-radius: 8px;
-    display:flex;
-    align-items:flex-end;
-    padding: 8px;
-    font-family: var(--font-title);
-    font-size: 9px;
-    color: var(--gold-bright);
-    text-shadow: 0 0 6px rgba(0,0,0,0.8);
-  }
+
+.gallery-tile img{
+  display:inline-block;
+  width:100%;
+  height:240px;
+  object-fit:contain;
+  max-width:100%;
+  aspect-ratio: 4/3;
+  border: 1px solid var(--gold-dim);
+  border-radius: 8px;
+  display:flex;
+  align-items:flex-end;
+  padding: 8px;
+  font-family: var(--font-title);
+  font-size: 9px;
+  color: var(--gold-bright);
+  text-shadow: 0 0 6px rgba(0,0,0,0.8);
+}
+
+.gallery-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  max-height:60vh;
+  overflow-y:auto;
+}
+
+
   .gallery-folder-view.hidden{
   display:none;
 }
 
 .gallery-folders.hidden{
+  display:none;
+}
+
+.gallery-folder-view.is-hidden,
+.gallery-folders.is-hidden{
   display:none;
 }
 
@@ -708,6 +966,33 @@ body.admin-mode #login-btn{
     outline-offset: 2px;
   }
 
+  #music-btn{
+  font-family: var(--font-title);
+  font-size: 9px;
+  letter-spacing: 0.5px;
+
+  padding: 7px 10px;
+
+  background: rgba(217,164,65,0.15);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+
+  color: var(--gold-bright);
+  cursor: pointer;
+
+  flex-shrink: 0;
+}
+
+#music-btn.active{
+  border-color:var(--gold-bright);
+  background:rgba(217,164,65,0.3);
+  color:var(--gold-bright);
+}
+
+#music-btn:hover{
+  background: rgba(217,164,65,0.3);
+}
+
 
   /* ---------- MOBILE ---------- */
   @media (max-width: 720px){
@@ -737,6 +1022,7 @@ body.admin-mode #login-btn{
     .win-title{ cursor: default; }
     #corner-widgets{ position:static; flex-direction:row; justify-content:center; margin: 10px 0; }
     #theme-toggle{ position:static; margin: 10px auto; display:block; }
+    #music-btn{ position:static; margin: 10px auto; display:block; }
     #wordmark{ position:static; text-align:center; margin: 10px 0; }
     body{ overflow:auto; height:auto; }
     html{ overflow:auto; height:auto; }
@@ -848,6 +1134,112 @@ body.admin-mode #login-btn{
     </div>
   </section>
 
+  <!-- MUSIC PLAYER -->
+<section class="win hidden" id="win-music"
+         style="top:90px; left:390px; width:340px; z-index:8;">
+
+  <div class="win-title">
+    <span class="label">♫ Lavi FM</span>
+
+    <div class="win-btns">
+      <button class="min-btn" aria-label="Minimize">_</button>
+      <button class="close-btn" aria-label="Close">X</button>
+    </div>
+  </div>
+
+  <div class="win-body music-player">
+
+    <div class="album-art" id="album-art">
+      ✦
+    </div>
+
+    <div class="track-info">
+      <h2 id="music-title">loading...</h2>
+      <p id="music-artist">Lavi FM</p>
+    </div>
+
+    <audio id="audio-player"></audio>
+
+    <input
+      type="range"
+      id="music-progress"
+      min="0"
+      max="100"
+      value="0"
+      aria-label="Track progress"
+    >
+
+    <div class="music-time">
+      <span id="music-current">0:00</span>
+      <span id="music-duration">0:00</span>
+    </div>
+
+    <div class="music-controls">
+      <button id="music-prev" type="button">|◀</button>
+      <button id="music-play" type="button">▶</button>
+      <button id="music-next" type="button">▶|</button>
+    </div>
+
+    <div class="volume-control">
+  <span>🔊</span>
+
+  <input
+    type="range"
+    id="music-volume"
+    min="0"
+    max="1"
+    step="0.01"
+    value="0.8"
+    aria-label="Volume"
+  >
+
+  <button id="music-mute" type="button">mute</button>
+</div>
+
+    <div class="tracklist" id="tracklist">
+
+      <button class="track active" type="button" data-track="0">
+        <span>01</span>
+        <span>Howling (Andromedik Remix)</span>
+      </button>
+
+      <button class="track" type="button" data-track="1">
+        <span>02</span>
+        <span>On & On</span>
+      </button>
+
+      <button class="track" type="button" data-track="2">
+        <span>03</span>
+        <span>My Heart Is Broken</span>
+      </button>
+
+      <button class="track" type="button" data-track="3">
+        <span>04</span>
+        <span>Magnetic</span>
+      </button>
+
+    </div>
+
+    <a
+      class="ytmusic-link"
+      href="https://music.youtube.com/@lavinayaaureline?si=pv8ASX4EozebIFf1"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      ♫ youtube music ↗
+    </a>
+    <a
+      class="spotify-link"
+      href="https://open.spotify.com/user/223yu5f2v5zstbvlze6rlb6pq?si=42fec729cf59418d"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      ♫ spotify ↗
+    </a>
+
+  </div>
+</section>
+
   <!-- PROJECTS -->
   <section class="win hidden" id="win-projects" style="top:66px; left:200px; width:430px; z-index:9;">
     <div class="win-title"><span class="label">💻 Projects</span>
@@ -952,6 +1344,8 @@ body.admin-mode #login-btn{
 
   <div class="gallery-folders">
 
+    <!-- FOLDERS -->
+
     <button class="gallery-folder" data-folder="minecraft">
       <span class="folder-icon">📁</span>
       <span class="folder-name">Minecraft</span>
@@ -977,12 +1371,12 @@ body.admin-mode #login-btn{
     </button>
 
   </div>
+    <div class="gallery-folder-view is-hidden">
 
     <h2 class="gallery-folder-title"></h2>
 
     <div class="gallery-grid"></div>
 
-    <div class="gallery-folder-view hidden">
     <button class="gallery-back" type="button">← back</button>
   </div>
 
@@ -1059,6 +1453,7 @@ body.admin-mode #login-btn{
 <div id="taskbar">
   <button id="start-btn" type="button">☾ START</button>
   <div id="taskbar-items"></div>
+   <button id="music-btn" type="button">♫ LAVI FM</button>
   <button id="theme-toggle" type="button" aria-pressed="false">☾ THEME</button>
   <button id="login-btn" type="button">♙ LOGIN</button>
   <div id="clock">00:00</div>
@@ -1165,6 +1560,9 @@ continueBtn.addEventListener('click', () => {
 
   if(win.classList.contains('hidden')) return;
 
+  // Lavi FM has its own permanent taskbar button
+  if(win.id === 'win-music') return;
+
   var btn = document.createElement('button');
 
   btn.className = 'task-item';
@@ -1254,10 +1652,33 @@ continueBtn.addEventListener('click', () => {
 
   renderTaskbar();
   setActiveTask('win-about');
+  /* ---------- start button ---------- */
 
   document.getElementById('start-btn').addEventListener('click', function(){
     windows.forEach(function(win){ openWindow(win.id); });
   });
+
+  /* ---------- music button ---------- */
+
+  var musicBtn = document.getElementById('music-btn');
+
+musicBtn.addEventListener('click', function(){
+
+  var musicWindow = document.getElementById('win-music');
+
+  if(musicWindow.classList.contains('hidden')){
+    openWindow('win-music');
+
+  } else if(musicWindow.classList.contains('minimized')){
+    musicWindow.classList.remove('minimized');
+    bringToFront(musicWindow);
+    renderTaskbar();
+
+  } else {
+    bringToFront(musicWindow);
+  }
+
+});
 
  /* ---------- gallery ---------- */
 
@@ -1270,7 +1691,7 @@ var galleryData = {
     images: [
 
       {
-        src: 'gallery/minecraft/gallery/minecraft/Screenshot 2026-05-09 203400.png',
+        src: 'gallery/minecraft/Screenshot 2026-05-09 203400.png',
         title: 'example screenshot'
       },
 
@@ -1286,7 +1707,7 @@ var galleryData = {
     images: [
 
       {
-        src: 'gallery/websites/gallery/websites/Screenshot 2025-09-08 225522.png',
+        src: 'gallery/websites/Screenshot 2025-09-08 225522.png',
         title: 'portfolio'
       }
 
@@ -1301,11 +1722,11 @@ var galleryData = {
     images: [
 
       {
-        src: 'gallery/edits/gallery/edits/Ariana Grande eternal sunshine+.png',
+        src: 'gallery/edits/Ariana Grande eternal sunshine+.png',
         title: 'work in progress'
       },
       {
-        src: 'gallery/edits/gallery/edits/gallery/edits/Untitled design.png',
+        src: 'gallery/edits/Untitled design.png.PNG',
         title: 'work in progress'
       }
 
@@ -1320,7 +1741,7 @@ var galleryData = {
     images: [
 
       {
-        src: 'gallery/random/gallery/random/FydrtSSWYAEmIc-.jpg',
+        src: 'gallery/random/FydrtSSWYAEmIc-.jpg',
         title: 'something'
       }
 
@@ -1363,8 +1784,8 @@ galleryFolders.forEach(function(folder){
 
     if(!data) return;
 
-    galleryFoldersView.classList.add('hidden');
-    galleryFolderView.classList.remove('hidden');
+    galleryFoldersView.classList.add('is-hidden');
+galleryFolderView.classList.remove('is-hidden');
 
     galleryFolderTitle.textContent = '📁 ' + data.title;
 
@@ -1394,8 +1815,8 @@ galleryFolders.forEach(function(folder){
 
 galleryBack.addEventListener('click', function(){
 
-  galleryFolderView.classList.add('hidden');
-  galleryFoldersView.classList.remove('hidden');
+  galleryFolderView.classList.add('is-hidden');
+  galleryFoldersView.classList.remove('is-hidden');
 
 });
 
@@ -1682,6 +2103,260 @@ function setupStatusEditor(){
 }
 
 setupStatusEditor();
+
+/* ---------- MUSIC PLAYER ---------- */
+
+var musicTracks = [
+  {
+    title: 'Howling (Andromedik Remix)',
+    artist: 'Asena, Cartoon, Jeja',
+    src: 'music/Asena-Cartoon.mp3',
+    art: 'music/art/Howl.jpg'
+  },
+  {
+    title: 'On & On',
+    artist: 'Cartoon, Daniel Levi, Jeja',
+    src: 'music/Cartoon-Daniel Levi.mp3',
+    art: 'music/art/On.jpg'
+  },
+  {
+    title: 'My Heart Is Broken',
+    artist: 'NEYVO',
+    src: 'music/NEYVO-Heart.mp3',
+    art: 'music/art/Heart.jpg'
+  },
+  {
+    title: 'Magnetic',
+    artist: 'springs!',
+    src: 'music/springs!-Magnetic.mp3',
+    art: 'music/art/Mag.jpg'
+  }
+];
+
+var audio = document.getElementById('audio-player');
+var playBtn = document.getElementById('music-play');
+var prevBtn = document.getElementById('music-prev');
+var nextBtn = document.getElementById('music-next');
+var progress = document.getElementById('music-progress');
+var volumeSlider = document.getElementById('music-volume');
+var muteBtn = document.getElementById('music-mute');
+
+var musicTitle = document.getElementById('music-title');
+var musicArtist = document.getElementById('music-artist');
+var currentTime = document.getElementById('music-current');
+var duration = document.getElementById('music-duration');
+
+var tracks = document.querySelectorAll('.track');
+
+var currentTrack = 0;
+
+
+function formatTime(seconds){
+
+  if(!isFinite(seconds)){
+    return '0:00';
+  }
+
+  var minutes = Math.floor(seconds / 60);
+  var remaining = Math.floor(seconds % 60);
+
+  return minutes + ':' + String(remaining).padStart(2, '0');
+}
+
+
+function loadTrack(index){
+
+  currentTrack = index;
+
+  var track = musicTracks[currentTrack];
+  var albumArt = document.getElementById('album-art');
+
+  albumArt.style.backgroundImage = "url('" + track.art + "')";
+  albumArt.textContent = '';
+
+  audio.src = track.src;
+  albumArt.src = track.art;
+
+  musicTitle.textContent = track.title;
+  musicArtist.textContent = track.artist;
+
+  currentTime.textContent = '0:00';
+  duration.textContent = '0:00';
+
+  progress.value = 0;
+
+  tracks.forEach(function(button, i){
+
+    button.classList.toggle(
+      'active',
+      i === currentTrack
+    );
+
+  });
+}
+
+
+function playTrack(){
+
+  audio.play().then(function(){
+
+    playBtn.textContent = '❚❚';
+
+  }).catch(function(){
+
+    playBtn.textContent = '▶';
+
+  });
+
+}
+
+
+function pauseTrack(){
+
+  audio.pause();
+
+  playBtn.textContent = '▶';
+}
+
+/* ---------- volume ---------- */
+
+audio.volume = 0.8;
+
+volumeSlider.addEventListener('input', function(){
+
+  audio.volume = volumeSlider.value;
+
+  if(audio.volume === 0){
+    muteBtn.textContent = 'unmute';
+  } else {
+    muteBtn.textContent = 'mute';
+  }
+
+});
+
+
+muteBtn.addEventListener('click', function(){
+
+  if(audio.muted){
+
+    audio.muted = false;
+    muteBtn.textContent = 'mute';
+
+  } else {
+
+    audio.muted = true;
+    muteBtn.textContent = 'unmute';
+
+  }
+
+});
+
+
+playBtn.addEventListener('click', function(){
+
+  if(audio.paused){
+    playTrack();
+  } else {
+    pauseTrack();
+  }
+
+});
+
+
+prevBtn.addEventListener('click', function(){
+
+  var previous = currentTrack - 1;
+
+  if(previous < 0){
+    previous = musicTracks.length - 1;
+  }
+
+  loadTrack(previous);
+  playTrack();
+
+});
+
+
+nextBtn.addEventListener('click', function(){
+
+  var next = currentTrack + 1;
+
+  if(next >= musicTracks.length){
+    next = 0;
+  }
+
+  loadTrack(next);
+  playTrack();
+
+});
+
+
+tracks.forEach(function(button){
+
+  button.addEventListener('click', function(){
+
+    var index = parseInt(
+      button.getAttribute('data-track'),
+      10
+    );
+
+    loadTrack(index);
+    playTrack();
+
+  });
+
+});
+
+
+audio.addEventListener('loadedmetadata', function(){
+
+  duration.textContent = formatTime(audio.duration);
+
+});
+
+
+audio.addEventListener('timeupdate', function(){
+
+  if(audio.duration){
+
+    progress.value =
+      (audio.currentTime / audio.duration) * 100;
+
+  }
+
+  currentTime.textContent =
+    formatTime(audio.currentTime);
+
+});
+
+
+progress.addEventListener('input', function(){
+
+  if(audio.duration){
+
+    audio.currentTime =
+      (progress.value / 100) * audio.duration;
+
+  }
+
+});
+
+
+audio.addEventListener('ended', function(){
+
+  var next = currentTrack + 1;
+
+  if(next >= musicTracks.length){
+    next = 0;
+  }
+
+  loadTrack(next);
+  playTrack();
+
+});
+
+
+loadTrack(0);
 
 })();
 </script>
