@@ -67,7 +67,7 @@
   }
 
   #bg-gradient{
-    position:fixed; inset:0; z-index:-3;
+    position:fixed; inset:0; z-index:1;
     background: radial-gradient(ellipse at 50% 40%, var(--bg-glow) 0%, var(--bg-mid) 45%, var(--bg-deep) 100%);
     transition: background 0.6s ease;
   }
@@ -75,7 +75,7 @@
   .stars-layer{
   position:fixed;
   inset:0;
-  z-index:1;
+  z-index:2;
   pointer-events:none;
 }
   .stars-layer .dot{
@@ -148,6 +148,9 @@
 
   /* ---------- MARQUEE ---------- */
   .marquee-bar{
+    position: relative;
+    z-index: 3;
+
     background: linear-gradient(90deg, var(--title-a), var(--title-b));
     border-bottom: 1px solid var(--gold-dim);
     overflow: hidden;
@@ -181,7 +184,7 @@
   right: 0;
   bottom: 46px;
   overflow: auto;
-  z-index: 2;
+  z-index: 3;
 }
 
   .icons{
@@ -1004,10 +1007,10 @@ body.admin-mode #login-btn{
   @media (max-width: 720px){
     #desktop{
       position: relative;
+      background: transparent;
       overflow: visible;
       height: auto;
       display:flex;
-      z-index: 2;
       flex-direction:column;
       gap: 16px;
       padding: 16px;
@@ -1027,13 +1030,63 @@ body.admin-mode #login-btn{
     }
 
     .win-title{ cursor: default; }
-    #corner-widgets{ position:static; flex-direction:row; justify-content:center; margin: 10px 0; }
+    #corner-widgets{ position:static; flex-direction:row; justify-content:center; margin: 10px 0; z-index: 3; }
     #theme-toggle{ position:static; margin: 10px auto; display:block; }
     #music-btn{ position:static; margin: 10px auto; display:block; }
     #wordmark{ position:static; text-align:center; margin: 10px 0; }
-    body{ overflow:auto; height:auto; }
-    html{ overflow:auto; height:auto; }
-    #taskbar{position: sticky; overflow-x: auto; white-space: nowrap; flex-shrink: 0 }
+    
+body{
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100vh;
+  padding-bottom: 70px;
+  background:
+    radial-gradient(
+      ellipse at 50% 40%,
+      var(--bg-glow) 0%,
+      var(--bg-mid) 45%,
+      var(--bg-deep) 100%
+    );
+}
+
+html{
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
+}
+
+#taskbar{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  flex-wrap: nowrap;
+
+  padding: 6px 8px;
+  gap: 8px;
+}
+
+#taskbar > *{
+  flex: 0 0 auto;
+}
+
+#taskbar-items{
+  flex: 0 0 auto;
+  overflow: visible;
+  display: flex;
+  gap: 6px;
+}
   }
 </style>
 </head>
