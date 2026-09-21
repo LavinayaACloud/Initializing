@@ -860,7 +860,7 @@ body.admin-mode #login-btn{
     display:flex;
     flex-direction:column;
     gap:8px;
-    z-index: 5;
+    z-index: 3;
     align-items: flex-end;
   }
   .widget-box{
@@ -1030,10 +1030,32 @@ body.admin-mode #login-btn{
     }
 
     .win-title{ cursor: default; }
-    #corner-widgets{ position:static; flex-direction:row; justify-content:center; margin: 10px 0; z-index: 3; }
+    #corner-widgets{
+  position: relative;
+  right: auto;
+  top: auto;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  margin: 10px 0;
+
+  z-index: 4;
+}
     #theme-toggle{ position:static; margin: 10px auto; display:block; }
     #music-btn{ position:static; margin: 10px auto; display:block; }
-    #wordmark{ position:static; text-align:center; margin: 10px 0; }
+    #wordmark{
+  position: relative;
+  right: auto;
+  bottom: auto;
+
+  text-align: center;
+  margin: 10px 0;
+
+  z-index: 4;
+}
     
 body{
   overflow-x: hidden;
