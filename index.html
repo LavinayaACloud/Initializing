@@ -1051,7 +1051,7 @@ body.admin-mode #login-btn{
 <!-- ---------- TOPBAR & CORNER WIDGETS ---------- -->
 
 <div class="marquee-bar">
-  <span class="marquee-track">✦ WELCOME TO LAVINAYA ✦ A SMALL WORLD, NOT JUST A PORTFOLIO ✦ DRAG THE WINDOWS AROUND ✦ SIGN THE GUESTBOOK ON YOUR WAY OUT ✦ BEST EXPLORED SLOWLY ✦</span>
+  <span class="marquee-track">✦ WELCOME TO LAVINAYA OS ✦ A SMALL WORLD, NOT JUST A PORTFOLIO ✦ DRAG THE WINDOWS AROUND ✦ SIGN THE GUESTBOOK ON YOUR WAY OUT ✦ BEST EXPLORED SLOWLY ✦</span>
 </div>
 
 <div id="corner-widgets">
@@ -1095,15 +1095,25 @@ body.admin-mode #login-btn{
     <p>this computer is currently operating in guest mode.</p>
 
     <form id="login-form">
-      <label for="admin-password">password</label>
+      <label for="admin-email">email</label>
 
-      <input
-        id="admin-password"
-        class="gb-field"
-        type="password"
-        autocomplete="off"
-        required
-      >
+        <input
+          id="admin-email"
+          class="gb-field"
+          type="email"
+          autocomplete="email"
+          required
+        >
+
+        <label for="admin-password">password</label>
+
+        <input
+          id="admin-password"
+          class="gb-field"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
 
       <button type="submit" class="btn-pixel">
         log in ▸
@@ -1295,24 +1305,83 @@ body.admin-mode #login-btn{
       <div class="win-btns"><button class="min-btn" aria-label="Minimize">_</button><button class="close-btn" aria-label="Close">X</button></div>
     </div>
     <div class="win-body">
-      <h2>latest entries</h2>
-      <div class="post">
-        <span class="post-date">2026.09.02</span>
-        <h3>why i built my site as a desktop instead of a page</h3>
-        <p>a portfolio that says "here's my resume" and one that says "welcome in, look around" are two very different experiences. notes on the second kind.</p>
-      </div>
-      <div class="post">
-        <span class="post-date">2026.08.14</span>
-        <h3>building a guestbook backend in an evening</h3>
-        <p>notes on rate-limiting, basic spam filtering, and why guestbooks are still a great small project.</p>
-      </div>
-      <div class="post">
-        <span class="post-date">2026.07.30</span>
-        <h3>on keeping a messy desktop on purpose</h3>
-        <p>the icons pile up as the projects pile up. that felt more honest than tidying it every redesign.</p>
-      </div>
-    </div>
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+  <h2 style="margin:0;">latest entries</h2>
+
+  <button
+    id="open-blog-admin"
+    class="btn-pixel admin-edit"
+    type="button"
+  >
+    ✎ edit
+  </button>
+</div>
+
+  <div id="blog-posts">
+    <p>loading entries...</p>
+  </div>
+</div>
   </section>
+
+  <!-- BLOG ADMIN -->
+<section class="win hidden" id="win-blog-admin" style="top:80px; left:300px; width:430px; z-index:35;">
+  <div class="win-title">
+    <span class="label">🖋 Blog Editor</span>
+
+    <div class="win-btns">
+      <button class="min-btn" aria-label="Minimize">_</button>
+      <button class="close-btn" aria-label="Close">X</button>
+    </div>
+  </div>
+
+  <div class="win-body">
+
+    <h2>new entry</h2>
+
+    <form id="blog-admin-form">
+
+      <label for="blog-title">title</label>
+      <input
+        id="blog-title"
+        class="gb-field"
+        type="text"
+        required
+      >
+
+      <label for="blog-slug">slug</label>
+      <input
+        id="blog-slug"
+        class="gb-field"
+        type="text"
+        required
+      >
+
+      <label for="blog-content">content</label>
+      <textarea
+        id="blog-content"
+        class="gb-field"
+        rows="10"
+        required
+      ></textarea>
+
+      <label style="display:flex; align-items:center; gap:8px; margin:12px 0;">
+        <input
+          id="blog-published"
+          type="checkbox"
+        >
+        publish immediately
+      </label>
+
+      <button type="submit" class="btn-pixel">
+        save entry ▸
+      </button>
+
+      <p id="blog-admin-message" style="margin-top:10px;"></p>
+
+    </form>
+
+  </div>
+</section>
 
   <!-- LINKS -->
   <section class="win hidden" id="win-links" style="top:140px; left:150px; width:330px; z-index:7;">
@@ -1322,14 +1391,12 @@ body.admin-mode #login-btn{
     <div class="win-body">
       <h2>elsewhere</h2>
       <ul class="link-list">
-        <li><a href="#">github.com/lavinaya</a></li>
-        <li><a href="#">lavinaya on nekoweb</a></li>
-        <li><a href="#">lavinaya's neocities</a></li>
-        <li><a href="#">mastodon: @lavinaya@dev.town</a></li>
+        <li><a href="https://github.com/LavinayaACloud" target="_blank" rel="noopener noreferrer">Lavinaya's GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/lavinayajones/" target="_blank" rel="noopener noreferrer">Lavinaya's LinkedIn</a></li>
+        <li><a href="https://www.youtube.com/@LavinayaAureline" target="_blank" rel="noopener noreferrer">Lavinaya's YT</a></li>
       </ul>
       <hr class="pixel">
-      <h3>webring</h3>
-      <p>◂ prev — <a href="#">random-web-ring</a> — next ▸</p>
+      
     </div>
   </section>
 
@@ -1389,23 +1456,79 @@ body.admin-mode #login-btn{
       <div class="win-btns"><button class="min-btn" aria-label="Minimize">_</button><button class="close-btn" aria-label="Close">X</button></div>
     </div>
     <div class="win-body">
+      <h2>professional summary</h2>
+      <p>Compassionate, organized, and detail-oriented professional with experience in customer service, caregiving, retail operations, transaction handling, and accuracy-sensitive project work. Skilled at welcoming and assisting people, managing competing priorities, maintaining organized records, and learning new systems quickly. Known for reliability, patience, strong follow-through, and careful attention to detail. Seeking a Patient Coordinator, Patient Access Representative, Medical Front Desk, or healthcare administrative support position.</p>
+      <h2>core competencies</h2>
+      <p>Patient and customer service • Professional communication • Appointment and schedule coordination • Intake and information collection • Data entry and recordkeeping • Payment and transaction accuracy • Multitasking and prioritization • Confidentiality-minded work habits • Problem-solving • Office technology • POS systems • Microsoft Office • Google Docs • Team collaboration • Emerging leadership</p>
       <h2>professional experience</h2>
       <div class="timeline-item">
-        <span class="timeline-role">Backend Engineer — Some Company</span>
-        <span class="timeline-meta">2023 — present</span>
-        <p>own the API layer for a product used by thousands of people daily; led the migration to a modular service architecture.</p>
+        <span class="timeline-role">Remodel Associate - Walmart</span>
+        <span class="timeline-meta">July 2026 – Present</span>
+        <p> •	Complete detailed remodeling and operational assignments requiring  patience, consistency, and close attention to accuracy and presentation.
+            •	Demonstrate reliability with tedious, detail-sensitive tasks and work carefully to meet expected standards.
+            •	Build trust with supervisors through dependable execution, strong follow-through, and willingness to take on increased responsibility.
+            •	Demonstrate emerging supervisory potential through initiative, accountability, and careful management of demanding assignments.
+            •	Operate register/POS systems while assisting customers and maintaining transaction accuracy.
+        </p>
       </div>
       <div class="timeline-item">
-        <span class="timeline-role">Software Engineer — Another Company</span>
-        <span class="timeline-meta">2021 — 2023</span>
-        <p>built internal tooling and CI pipelines; cut deploy time by more than half.</p>
+        <span class="timeline-role">Food & Consumables Associate - Walmart </span>
+        <span class="timeline-meta">November 2025 – July 2026</span>
+        <p> •	Provided professional, helpful customer service while assisting     shoppers with questions, product location, and problem resolution.
+            •	Maintained organized department operations through stocking, product rotation, inventory awareness, and attention to freshness and presentation.
+            •	Balanced multiple priorities in a busy environment while maintaining accuracy, efficiency, and a positive customer experience.
+            •	Collaborated with coworkers to support daily workflow and department readiness.
+        </p>
       </div>
       <div class="timeline-item">
-        <span class="timeline-role">B.S. Computer Science — Some University</span>
-        <span class="timeline-meta">2017 — 2021</span>
-        <p>focused on distributed systems and human-computer interaction.</p>
+        <span class="timeline-role">Dasher | DoorDash</span>
+        <span class="timeline-meta">March 2025 – September 2025</span>
+        <p> •	Managed orders, timing, navigation, and customer communication independently in a fast-paced service environment.
+            •	Maintained order accuracy and customer satisfaction while adapting to changing circumstances.
+            •	Demonstrated reliability, self-direction, and strong time-management skills.
+        </p>
       </div>
-      <a class="btn-pixel" href="#">download full resume ▸</a>
+      <div class="timeline-item">
+        <span class="timeline-role">Retail Sales Associate | Walmart</span>
+        <span class="timeline-meta">December 2023 – February 2025</span>
+        <p> •	Assisted customers with inquiries, store navigation, and resolving routine concerns in a high-volume retail setting.
+            •	Supported stocking, merchandising, inventory management, and overall store organization.
+            •	Operated POS systems and handled customer transactions with attention to accuracy and service.
+            •	Multitasked across customer-facing and operational responsibilities while maintaining productivity.
+        </p>
+      </div>  
+      <div class="timeline-item">
+        <span class="timeline-role">In-Home Caregiver | Private Family Care</span>
+        <span class="timeline-meta">February 2020 – May 2023</span>
+        <p> •	Provided dependable, compassionate support to a family member over an extended period.
+            •	Managed daily responsibilities, routines, and changing needs with patience, discretion, and attention to detail.
+            •	Developed empathy, calm communication, and the ability to provide reassurance during difficult situations.
+        </p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-role">Student Bank Teller | Allegacy Federal Credit Union</span>
+        <span class="timeline-meta">January 2019 – May 2019</span>
+        <p> •	Assisted with account opening, deposits, and withdrawals in a supervised student banking environment.
+            •	Recorded transactions on balance sheets and verified that account and cash drawer totals were properly accounted for.
+            •	Opened and closed the cash drawer according to established procedures, emphasizing accuracy and responsibility.
+        </p>
+      </div>
+      <h2>technical & administrative skills</h2>
+      <p>Self-taught web development and digital design. Created and maintained a personal multi-page website using HTML and CSS, with foundational JavaScript and interactive user-interface concepts. Comfortable learning new software, entering information accurately, organizing digital materials, and using Microsoft Word, Excel, PowerPoint, Outlook, Google Docs, and other productivity tools.</p>
+      <h2>education & credentials</h2>
+      <div class="timeline-item">
+        <span class="timeline-role">High School Diploma - John F. Kennedy High School</span>
+        <span class="timeline-meta">2019</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-role">ACT WorkKeys NCRC Platinum</span>
+        <span class="timeline-meta">2019</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-role">OSHA 10 Certification</span>
+        <span class="timeline-meta">2018</span>
+      </div>
+      <a class="btn-pixel" href="Resume/Public Resume.docx">download full resume ▸</a>
     </div>
   </section>
 
@@ -1416,16 +1539,16 @@ body.admin-mode #login-btn{
     </div>
     <div class="win-body">
       <h2>things i love</h2>
-      <p>a shrine, in old-web terms, is a little page devoted to something you adore — no reason needed. here's mine, still under construction:</p>
+      <p>a shrine, in old-web terms, is a little page devoted to something one adores — no reason needed. here's mine, still under construction:</p>
       <div class="post">
         <span class="post-date">◆ ONE</span>
-        <h3>replace with a game, show, book, or artist</h3>
-        <p>a few lines on why it matters to you.</p>
+        <h3>hate that i made you love me</h3>
+        <p>maybe i'll explain another time.</p>
       </div>
       <div class="post">
         <span class="post-date">◆ TWO</span>
-        <h3>replace with another obsession</h3>
-        <p>a few lines on why it matters to you.</p>
+        <h3>petal</h3>
+        <p>"as long as she gets it right"</p>
       </div>
     </div>
   </section>
@@ -1461,7 +1584,88 @@ body.admin-mode #login-btn{
 
 <!-- ---------- JAVASCRIPTS ---------- -->
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+const supabaseUrl = 'https://lafmidverrmzdvualcvf.supabase.co';
+
+const supabaseKey = 'sb_publishable_Uie5cIh3Qt1oqqwBVgqN4g_uNvICb9s';
+
+const supabaseClient = window.supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
+
+/* ---------- BLOG DATABASE ---------- */
+
+async function loadBlogPosts(){
+
+  var blogPosts = document.getElementById('blog-posts');
+
+  if(!blogPosts){
+    return;
+  }
+
+  blogPosts.innerHTML = '<p>loading entries...</p>';
+
+  var result = await supabaseClient
+    .from('posts')
+    .select('id, title, slug, content, published, created_at, updated_at')
+    .eq('published', true)
+    .order('created_at', { ascending: false });
+
+  if(result.error){
+    console.error('Blog loading error:', result.error);
+    blogPosts.innerHTML = '<p>unable to load entries.</p>';
+    return;
+  }
+
+  if(result.data.length === 0){
+    blogPosts.innerHTML = '<p>no entries yet...</p>';
+    return;
+  }
+
+  blogPosts.innerHTML = '';
+
+  result.data.forEach(function(post){
+
+    var article = document.createElement('article');
+    article.className = 'post';
+
+    var date = document.createElement('div');
+    date.className = 'post-date';
+
+    date.textContent = new Date(post.created_at).toLocaleDateString();
+
+    var title = document.createElement('h3');
+    title.textContent = post.title;
+
+    var content = document.createElement('p');
+    content.textContent = post.content;
+
+    article.appendChild(date);
+    article.appendChild(title);
+    article.appendChild(content);
+
+    blogPosts.appendChild(article);
+  });
+}
+
+loadBlogPosts();
+
+/* ---------- BLOG ADMIN WINDOW ---------- */
+
+var openBlogAdminBtn = document.getElementById('open-blog-admin');
+
+if(openBlogAdminBtn){
+  openBlogAdminBtn.addEventListener('click', function(){
+
+    openWindow('win-blog-admin');
+
+  });
+}
+
+
 (function(){
   "use strict";
 
@@ -1537,12 +1741,16 @@ continueBtn.addEventListener('click', () => {
   }
 
   function openWindow(id){
-    var win = document.getElementById(id);
-    if(!win) return;
-    win.classList.remove('hidden');
-    bringToFront(win);
-    renderTaskbar();
-  }
+  var win = document.getElementById(id);
+
+  if(!win) return;
+
+  win.classList.remove('hidden');
+  win.classList.remove('minimized');
+
+  bringToFront(win);
+  renderTaskbar();
+}
 
   function closeWindow(win){
     win.classList.add('hidden');
@@ -1654,9 +1862,102 @@ continueBtn.addEventListener('click', () => {
   setActiveTask('win-about');
   /* ---------- start button ---------- */
 
-  document.getElementById('start-btn').addEventListener('click', function(){
-    windows.forEach(function(win){ openWindow(win.id); });
+  /* ---------- START MENU ---------- */
+
+var publicWindows = [
+  'win-about',
+  'win-projects',
+  'win-gallery',
+  'win-blog',
+  'win-links',
+  'win-resume',
+  'win-shrines',
+  'win-guestbook'
+];
+
+document.getElementById('start-btn').addEventListener('click', function(){
+
+  publicWindows.forEach(function(id){
+    openWindow(id);
   });
+
+});
+
+  /* ---------- BLOG ADMIN ---------- */
+
+var openBlogAdminBtn = document.getElementById('open-blog-admin');
+
+if(openBlogAdminBtn){
+
+  openBlogAdminBtn.addEventListener('click', function(){
+
+    openWindow('win-blog-admin');
+
+  });
+
+}
+var blogAdminForm = document.getElementById('blog-admin-form');
+
+if(blogAdminForm){
+
+  blogAdminForm.addEventListener('submit', async function(e){
+
+    e.preventDefault();
+
+    var title = document.getElementById('blog-title').value.trim();
+    var slug = document.getElementById('blog-slug').value.trim();
+    var content = document.getElementById('blog-content').value.trim();
+    var published = document.getElementById('blog-published').checked;
+    var message = document.getElementById('blog-admin-message');
+
+    if(!title || !slug || !content){
+      message.textContent = 'please fill in all fields.';
+      return;
+    }
+
+    message.textContent = 'saving...';
+    message.style.color = 'var(--text-dim)';
+
+    var sessionResult = await supabaseClient.auth.getSession();
+
+    if(!sessionResult.data.session){
+      message.textContent = 'you are not logged in.';
+      return;
+    }
+
+    var result = await supabaseClient
+      .from('posts')
+      .insert({
+        title: title,
+        slug: slug,
+        content: content,
+        published: published
+      });
+
+    if(result.error){
+
+      console.error('Blog save error:', result.error);
+
+      message.textContent = 'unable to save entry.';
+      message.style.color = 'var(--text-dim)';
+
+      return;
+    }
+
+    message.textContent = 'entry saved ✦';
+    message.style.color = 'var(--gold-bright)';
+
+    blogAdminForm.reset();
+
+    await loadBlogPosts();
+
+    setTimeout(function(){
+      closeWindow(document.getElementById('win-blog-admin'));
+    }, 700);
+
+  });
+
+}
 
   /* ---------- music button ---------- */
 
@@ -1848,61 +2149,159 @@ galleryBack.addEventListener('click', function(){
   });
 
   /* ---------- visitor counter ---------- */
-  try {
-    var count = parseInt(localStorage.getItem('lavinaya_visits') || '10482', 10);
-    count += 1;
-    localStorage.setItem('lavinaya_visits', String(count));
-    document.getElementById('counter-digits').textContent = String(count).padStart(6, '0');
-  } catch(e){
-    document.getElementById('counter-digits').textContent = '010483';
+
+/* ---------- visitor counter ---------- */
+
+async function updateVisitorCounter(){
+
+  var counter = document.getElementById('counter-digits');
+
+  if(!counter){
+    return;
   }
+
+  counter.textContent = '------';
+
+  var result = await supabaseClient
+    .rpc('increment_visit_count');
+
+  if(result.error){
+
+    console.error('Visitor counter error:', result.error);
+
+    counter.textContent = '------';
+
+    return;
+  }
+
+  var count = result.data;
+
+  counter.textContent = String(count).padStart(6, '0');
+}
+
+updateVisitorCounter();
 
   /* ---------- ADMIN MODE ---------- */
-document.body.classList.add('admin-mode');
 
-  /* ---------- guestbook ---------- */
-  var GB_KEY = 'lavinaya_guestbook';
-  var entriesEl = document.getElementById('guestbook-entries');
+  /* ---------- GUESTBOOK ---------- */
 
-  function loadEntries(){
-    try { return JSON.parse(localStorage.getItem(GB_KEY) || '[]'); }
-    catch(e){ return []; }
-  }
-  function saveEntries(list){
-    try { localStorage.setItem(GB_KEY, JSON.stringify(list)); } catch(e){}
-  }
-  function escapeHtml(str){
-    var div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
-  function renderEntries(){
-    var list = loadEntries();
-    if(list.length === 0){
-      entriesEl.innerHTML = '<p style="font-size:16px;">no messages yet — be the first to sign!</p>';
-      return;
-    }
-    entriesEl.innerHTML = list.slice().reverse().map(function(e){
-      return '<div class="post"><span class="post-date">' + escapeHtml(e.name) + '</span><p>' + escapeHtml(e.msg) + '</p></div>';
-    }).join('');
-  }
-  renderEntries();
+var entriesEl = document.getElementById('guestbook-entries');
+var guestbookForm = document.getElementById('guestbook-form');
 
-  document.getElementById('guestbook-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    var name = document.getElementById('gb-name').value.trim();
-    var msg = document.getElementById('gb-msg').value.trim();
-    if(!name || !msg) return;
-    var list = loadEntries();
-    list.push({name: name, msg: msg});
-    saveEntries(list);
-    renderEntries();
-    e.target.reset();
+function escapeHtml(str){
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+async function loadGuestbook(){
+
+  if(!entriesEl){
+    return;
+  }
+
+  entriesEl.innerHTML =
+    '<p style="font-size:16px;">loading messages...</p>';
+
+  var result = await supabaseClient
+    .from('guestbook')
+    .select('id, name, message, created_at')
+    .order('created_at', { ascending: false });
+
+  if(result.error){
+
+    console.error('Guestbook loading error:', result.error);
+
+    entriesEl.innerHTML =
+      '<p style="font-size:16px;">unable to load messages.</p>';
+
+    return;
+  }
+
+  if(result.data.length === 0){
+
+    entriesEl.innerHTML =
+      '<p style="font-size:16px;">no messages yet — be the first to sign!</p>';
+
+    return;
+  }
+
+  entriesEl.innerHTML = '';
+
+  result.data.forEach(function(entry){
+
+    var post = document.createElement('div');
+    post.className = 'post';
+
+    var name = document.createElement('span');
+    name.className = 'post-date';
+    name.textContent = entry.name;
+
+    var message = document.createElement('p');
+    message.textContent = entry.message;
+
+    post.appendChild(name);
+    post.appendChild(message);
+
+    entriesEl.appendChild(post);
+
   });
+}
 
-  /* ---------- ADMIN MODE ---------- */
 
-var ADMIN_PASSWORD = 'Moonlight941';
+/* Load existing messages */
+
+loadGuestbook();
+
+
+/* Add a new message */
+
+guestbookForm.addEventListener('submit', async function(e){
+
+  e.preventDefault();
+
+  var nameInput = document.getElementById('gb-name');
+  var msgInput = document.getElementById('gb-msg');
+
+  var name = nameInput.value.trim();
+  var msg = msgInput.value.trim();
+
+  if(!name || !msg){
+    return;
+  }
+
+  var button = guestbookForm.querySelector('button[type="submit"]');
+
+  button.disabled = true;
+  button.textContent = 'signing...';
+
+  var result = await supabaseClient
+    .from('guestbook')
+    .insert({
+      name: name,
+      message: msg
+    });
+
+  if(result.error){
+
+    console.error('Guestbook submission error:', result.error);
+
+    button.disabled = false;
+    button.textContent = 'sign ▸';
+
+    return;
+  }
+
+  guestbookForm.reset();
+
+  button.disabled = false;
+  button.textContent = 'sign ▸';
+
+  await loadGuestbook();
+
+});
+
+/* ---------- ADMIN MODE ---------- */
 
 var loginBtn = document.getElementById('login-btn');
 var loginForm = document.getElementById('login-form');
@@ -1911,95 +2310,142 @@ var statusText = document.getElementById('status-text');
 var editStatusBtn = document.getElementById('edit-status');
 
 var STATUS_KEY = 'lavinaya_status';
-var ADMIN_KEY = 'lavinaya_admin';
+
+
+function setAdminMode(){
+
+  loginBtn.textContent = '♙ ADMIN';
+
+}
+
+
+function leaveAdminMode(){
+
+  document.body.classList.remove('admin-mode');
+  loginBtn.textContent = '♙ LOGIN';
+
+}
+
+
+async function isAdmin(){
+
+  var result = await supabaseClient.auth.getSession();
+
+  return !!result.data.session;
+
+}
+
+
+async function updateAdminUI(){
+
+  var admin = await isAdmin();
+
+  if(admin){
+    setAdminMode();
+  } else {
+    leaveAdminMode();
+  }
+
+}
+
 
 function loadStatus(){
+
   try {
+
     var savedStatus = localStorage.getItem(STATUS_KEY);
 
     if(savedStatus){
       statusText.textContent = savedStatus;
     }
+
   } catch(e){}
+
 }
 
-function setAdminMode(){
-  document.body.classList.add('admin-mode');
-  loginBtn.textContent = '♙ ADMIN';
-}
-
-function leaveAdminMode(){
-  document.body.classList.remove('admin-mode');
-  loginBtn.textContent = '♙ LOGIN';
-
-  try {
-    localStorage.removeItem(ADMIN_KEY);
-  } catch(e){}
-}
-
-function isAdmin(){
-  try {
-    return localStorage.getItem(ADMIN_KEY) === 'true';
-  } catch(e){
-    return false;
-  }
-}
 
 loadStatus();
 
-if(isAdmin()){
-  setAdminMode();
-}
 
-loginBtn.addEventListener('click', function(){
+updateAdminUI();
 
-  if(isAdmin()){
+
+loginBtn.addEventListener('click', async function(){
+
+  var admin = await isAdmin();
+
+  if(admin){
+
+    await supabaseClient.auth.signOut();
+
     leaveAdminMode();
+
     return;
+
   }
+
 
   openWindow('win-login');
 
-  var passwordInput = document.getElementById('admin-password');
+  var emailInput = document.getElementById('admin-email');
 
-  if(passwordInput){
-    passwordInput.focus();
+  if(emailInput){
+    emailInput.focus();
   }
+
 });
 
 
-loginForm.addEventListener('submit', function(e){
+loginForm.addEventListener('submit', async function(e){
 
   e.preventDefault();
 
+
+  var emailInput = document.getElementById('admin-email');
   var passwordInput = document.getElementById('admin-password');
+
+
+  var email = emailInput.value.trim();
   var password = passwordInput.value;
 
-  if(password === ADMIN_PASSWORD){
 
-    try {
-      localStorage.setItem(ADMIN_KEY, 'true');
-    } catch(e){}
+  loginMessage.textContent = 'authenticating...';
+  loginMessage.style.color = 'var(--text-dim)';
 
-    setAdminMode();
 
-    loginMessage.textContent = 'access granted ✦';
-    loginMessage.style.color = 'var(--gold-bright)';
+  var result = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
 
-    passwordInput.value = '';
 
-    setTimeout(function(){
-      closeWindow(document.getElementById('win-login'));
-    }, 700);
-
-  } else {
+  if(result.error){
 
     loginMessage.textContent = 'access denied.';
     loginMessage.style.color = 'var(--text-dim)';
 
     passwordInput.value = '';
     passwordInput.focus();
+
+    return;
+
   }
+
+
+  setAdminMode();
+
+  loginMessage.textContent = 'access granted ✦';
+  loginMessage.style.color = 'var(--gold-bright)';
+
+  emailInput.value = '';
+  passwordInput.value = '';
+
+
+  setTimeout(function(){
+
+    closeWindow(document.getElementById('win-login'));
+
+  }, 700);
 
 });
 
