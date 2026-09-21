@@ -73,9 +73,11 @@
   }
 
   .stars-layer{
-    position:fixed; inset:0; z-index:-2;
-    pointer-events:none;
-  }
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
   .stars-layer .dot{
     position:absolute;
     background: var(--star-color);
@@ -173,10 +175,14 @@
 
   /* ---------- DESKTOP ---------- */
   #desktop{
-    position: fixed;
-    top: 28px; left:0; right:0; bottom:46px;
-    overflow: auto;
-  }
+  position: fixed;
+  top: 28px;
+  left: 0;
+  right: 0;
+  bottom: 46px;
+  overflow: auto;
+  z-index: 2;
+}
 
   .icons{
     display:flex;
@@ -997,10 +1003,11 @@ body.admin-mode #login-btn{
   /* ---------- MOBILE ---------- */
   @media (max-width: 720px){
     #desktop{
-      position: static;
+      position: relative;
       overflow: visible;
       height: auto;
       display:flex;
+      z-index: 2;
       flex-direction:column;
       gap: 16px;
       padding: 16px;
@@ -1026,7 +1033,7 @@ body.admin-mode #login-btn{
     #wordmark{ position:static; text-align:center; margin: 10px 0; }
     body{ overflow:auto; height:auto; }
     html{ overflow:auto; height:auto; }
-    #taskbar{ position: sticky; }
+    #taskbar{position: sticky; overflow-x: auto; white-space: nowrap; flex-shrink: 0 }
   }
 </style>
 </head>
