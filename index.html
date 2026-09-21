@@ -1018,7 +1018,7 @@ body.admin-mode #login-btn{
       height: auto !important;
       resize: none;
     }
-    .win.hidden{ display:flex; }
+
     .win-title{ cursor: default; }
     #corner-widgets{ position:static; flex-direction:row; justify-content:center; margin: 10px 0; }
     #theme-toggle{ position:static; margin: 10px auto; display:block; }
@@ -1804,11 +1804,7 @@ continueBtn.addEventListener('click', () => {
     win.addEventListener('mousedown', function(){ bringToFront(win); });
   });
 
-  if(isMobile()){
-    windows.forEach(function(win){ win.classList.remove('hidden'); });
-  } else {
-    openWindow('win-about');
-  }
+  openWindow('win-about');
 
   /* ---------- dragging ---------- */
   function makeDraggable(win){
